@@ -7,4 +7,5 @@ if __name__ == '__main__':
     token=qa.token_get()
     with open("token.txt","w") as f:
      f.write(token)  
+    # 自带文件关闭功能，不需要再写f.close()
 

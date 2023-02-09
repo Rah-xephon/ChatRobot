@@ -6,8 +6,8 @@ import sdu_news
 
 #获取access_token,有效期为30天
 def token_get():
-    # 待填写
-    url = ""
+    url = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=Z30MfIarj8EWHrRL8xo4aeyg&cl" \
+          "ient_secret=5dcg2cYUUNmgIYu6oOsNrtwffg04ZEH4"
     payload = {}
     headers = {}
 
@@ -57,12 +57,16 @@ def news_answer(x):
     if 1 in x:
         print("这是山大头条新闻")
         files=os.walk("/root/Dev/ALGO/news/headlines")
+        # print(files)
         file_list=[]
         #遍历新闻目录下的文件夹，寻找最新的爬取到的新闻
         for root, dirs, files in files:
+            # print(dirs)
             for d in dirs:
                 file_list.append(d)
+        # print(file_list)
         path="/root/Dev/ALGO/news/headlines/"+file_list[-1]
+        #print(path)
         news=[]
         for root,dirs, files in os.walk(path):
             for f in files:
@@ -81,7 +85,9 @@ def news_answer(x):
         for root, dirs, files in files:
             for d in dirs:
                 file_list.append(d)
+        # print(file_list)
         path = "/root/Dev/ALGO/news/academic/" + file_list[-1]
+        # print(path)
         news = []
         for root, dirs, files in os.walk(path):
             for f in files:
@@ -99,7 +105,9 @@ def news_answer(x):
         for root, dirs, files in files:
             for d in dirs:
                 file_list.append(d)
+        # print(file_list)
         path = "/root/Dev/ALGO/news/highlights/" + file_list[-1]
+        # print(path)
         news = []
         for root, dirs, files in os.walk(path):
             for f in files:
@@ -135,6 +143,8 @@ def answer1(x,question,token,t_id='001', s_id="", l_id="S001"):
         response = json.loads(ask_q(token, t_id, s_id, l_id, question))
         answer=[]
         a = response["result"]["context"]['SYS_PRESUMED_HIST'][1]
+        answer.append(a)
+        # print(answer)
         return answer
 
 def answer2(query):
@@ -168,9 +178,20 @@ def answer(x,question,token,t_id='001', s_id="", l_id="S001"):
 
 
 if __name__ == "__main__":
+    #爬取新闻
+    # destdir1 = "news/headlines"
+    # destdir2 = "news/highlights"
+    # destdir3 = "news/academic"
+    # sdu_news.download_academic(destdir3)
+    # sdu_news.download_headlines(destdir1)
+    # sdu_news.download_heghlights(destdir2)
+
+    # 利用Linux的crond进行更新每28天更新一次token，每三天需要更新一次新闻，可能需要多线程操作
+
     # 先读取token
     with open("/root/Dev/ALGO/token.txt", "r") as f:  #
      token = f.read()
+     # print(token)
     question=input("您好，智能校园问答系统为您服务，请问您有什么想问的呢？")
     #获取关键词
     key=key_word(question)
