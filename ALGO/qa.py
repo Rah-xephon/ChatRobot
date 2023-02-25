@@ -198,8 +198,6 @@ if __name__ == "__main__":
     # sdu_news.download_headlines(destdir1)
     # sdu_news.download_heghlights(destdir2)
 
-    # 利用Linux的crond进行更新每28天更新一次token，每三天需要更新一次新闻，可能需要多线程操作
-
     # 先读取token
     with open("token.txt", "r") as f:  #
      token = f.read()
